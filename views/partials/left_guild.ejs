@@ -1,0 +1,22 @@
+<div id="leftmenuinner">
+    <div id="leftmenuinnerinner">
+        <div class="custom-dropdown" id="server-dropdown">
+            <div class="dropdown-selected" id="selected-option">
+                <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="<%= guild.name %>" width="30" height="30">
+                <span class="server-name"><%= guild.name %></span>
+                <span class="arrow-icon" id="arrow-icon">&#x25BC;</span>
+            </div>
+            <div class="dropdown-options" id="dropdown-options">
+                <% user.guilds.forEach(allGuild => { %>
+                    <div class="option" data-value="/guild/<%= allGuild.id %>">
+                        <img src="https://cdn.discordapp.com/icons/<%= allGuild.id %>/<%= allGuild.icon %>.png" alt="<%= allGuild.name %>" width="30" height="30">
+                        <span><%= allGuild.name %></span>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <div class="left-menu-item <%= menu === 'info' ? 'active' : '' %>"><a href="/guild/<%= guild.id %>/info">Server Info</a></div>
+        <div class="left-menu-item <%= menu === 'history' ? 'active' : '' %>"><a href="/guild/<%= guild.id %>/history">Server History</a></div>
+        <div class="left-menu-item <%= menu === 'members' ? 'active' : '' %>"><a href="/guild/<%= guild.id %>/members">Server Members</a></div>
+    </div>
+</div>

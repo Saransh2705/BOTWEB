@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= guild.name %> - Guild Details</title>
+    <link rel="stylesheet" href="/css/navsl.css">
+    <link rel="stylesheet" href="/css/guild.css">
+    <style>
+        .inner-bar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            position: fixed;
+            top: 60px;
+            left: 250px;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .inner-bar button,
+        .inner-bar input,
+        .inner-bar select {
+            margin-right: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .canvas-container {
+            background-color: palegreen;
+            position: fixed;
+            top: 120px;
+            bottom: 0;
+            width: calc(100% - 250px);
+            left: 250px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            position: absolute;
+            border: 1px solid #000;
+            background-color: rgba(255, 255, 255, 0.5);
+            resize: both;
+            overflow: hidden;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .box img,
+        .box p {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #myCanvas {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <%- include('partials/sidebar') %>
+    <div class="container">
+        <%- include('partials/left_guild') %>
+        <div id="rightmenuinner">
+            <div id="server-info" class="content-section">
+                <%- include('partials/server_info') %>
+            </div>
+            <div id="server-history" class="content-section">
+                <%- include('partials/server_history') %>
+            </div>
+            <div id="server-members" class="content-section">
+                <%- include('partials/server_members') %>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Add your JavaScript here
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    <script src="/js/scripts.js" defer></script>
+</body>
+</html>

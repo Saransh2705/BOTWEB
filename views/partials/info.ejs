@@ -1,0 +1,25 @@
+<div class="form-container">
+    <div class="upload-container">
+        <div>
+            <label for="logo-upload">Upload Logo</label>
+            <input type="file" id="logo-upload" accept="image/*" onchange="displayImage('logo')">
+            <img id="logo" src="" alt="Logo">
+        </div>
+        <div>
+            <label for="template-upload">Upload Template</label>
+            <input type="file" id="template-upload" accept="image/*" onchange="displayImage('template')">
+            <img id="template" src="" alt="Template">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="channel">Channel ID</label>
+        <input type="number" id="channel" name="channel">
+    </div>
+    <div class="form-group">
+        <label for="clan">Clan Tag</label>
+        <input type="text" id="clan" name="clan">
+    </div>
+    <div class="save-button">
+        <button type="submit" onclick="sendData()">Save</button>
+    </div>
+</div>

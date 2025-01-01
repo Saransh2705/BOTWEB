@@ -1,0 +1,61 @@
+.upload-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.upload-container input[type="file"] {
+    display: none;
+}
+
+.upload-container label {
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-container img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-left: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.form-container .form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.form-container .form-group label {
+    margin-bottom: 5px;
+}
+
+.form-container .form-group input {
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.save-button {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.save-button button {
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

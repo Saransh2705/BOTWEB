@@ -1,0 +1,13 @@
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-content">
+    <button id="close-sidebar" class="close-sidebar">&times;</button>
+    <h2>Account</h2>
+    <ul>
+      <li><a href="/logout" class="logout-button">Logout</a></li>
+      <li><a href="/login" class="login-button">Login with another ID</a></li>
+      <% if (user && user.otherAccounts && user.otherAccounts.length > 1) { %>
+        <li><a href="/logout-all" class="logout-all-button">Logout All IDs</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>

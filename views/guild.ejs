@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= guild.name %> - Guild Details
+    </title>
+    <link rel="stylesheet" href="/css/navsl.css">
+    <link rel="stylesheet" href="/css/guild.css">
+    <% if(menu !=="" ) { %>
+        <link rel="stylesheet" href="/css/<%= menu %>.css">
+        <% } %>
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+        <%- include('partials/sidebar') %>
+            <div class="container">
+                <%- include('partials/left_guild') %>
+                    <div id="rightmenuinner">
+                        <% if(menu !=="" ) { %>
+                            <%- include(`partials/${menu}`) %>
+                                <% } %>
+                    </div>
+            </div>
+            <script>
+                var guildId = '<%= guild.id %>';
+                var menu = '<%= menu %>';
+
+                function displayImage(id) {
+                    const input = document.getElementById(id + '-upload');
+                    const img = document.getElementById(id);
+                    img.src = URL.createObjectURL(input.files[0]);
+                }
+
+                function validateFile(file) {
+                    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+                    return allowedExtensions.test(file.name);
+                }
+
+                function sendData() {
+                    // Get form inputs
+                    var channel = document.getElementById("channel").value;
+                    var clan = document.getElementById("clan").value;
+                    var logoInput = document.getElementById("logo-upload");
+                    var templateInput = document.getElementById("template-upload");
+
+
+                    if (!logoInput.files[0] || !validateFile(logoInput.files[0])) {
+                        alert('Please upload a valid logo (PNG, JPG, JPEG).');
+                        return;
+                    }
+                    if (!templateInput.files[0] || !validateFile(templateInput.files[0])) {
+                        alert('Please upload a valid template (PNG, JPG, JPEG).');
+                        return;
+                    }
+
+                    var logo = document.getElementById("logo").src;
+                    var template = document.getElementById("template").src;
+                    sessionStorage.setItem('channel', channel);
+                    sessionStorage.setItem('clan', clan);
+                    sessionStorage.setItem('logo', logo);
+                    sessionStorage.setItem('template', template);
+
+                    // Perform operations to send data to server
+                    fetch(`/guild/${guildId}/${menu}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            channel: channel,
+                            clan: clan,
+                            logo: logo,
+                            template: template
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle response from server
+                            console.log(data);
+                            if (data.channelValid && data.clanValid) {
+                                // Redirect to a new endpoint (replace 'new-endpoint-url' with your URL)
+                                window.location.href = '/serve';
+                            } else {
+                                sessionStorage.removeItem('channel');
+                                sessionStorage.removeItem('clan');
+                                sessionStorage.removeItem('logo');
+                                sessionStorage.removeItem('template');
+
+                                // Handle errors from server
+                                if (!data.channelValid) {
+                                    document.getElementById("channel").style.borderColor = "red";
+                                } else {
+                                    document.getElementById("channel").style.borderColor = "";
+                                }
+                                if (!data.clanValid) {
+                                    document.getElementById("clan").style.borderColor = "red";
+                                } else {
+                                    document.getElementById("clan").style.borderColor = "";
+                                }
+
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+            </script>
+            <script src="/js/scripts.js" defer></script>
+</body>
+
+</html>

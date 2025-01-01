@@ -1,0 +1,22 @@
+<nav>
+  <div class="nav-left">
+    <img src="	https://cdn.discordapp.com/avatars/1236091640288907345/f42e6395e13a5810bd9b9b14cbb325af.png" alt="Bot Logo">
+    <span>UDG <abbr>GALAXIA</abbr></span>
+  </div>
+  <div class="nav-center">
+    <a href="/"><i class="fas fa-home"></i> DASHBOARD</a>
+    <a href="/about"><i class="fas fa-info-circle"></i> ABOUT US</a>
+    <a href="/commands"><i class="fas fa-list"></i> COMMANDS</a>
+    <a href="/support"><i class="fas fa-life-ring"></i> SUPPORT</a>
+  </div>
+  <div class="nav-right">
+    <% if (user) { %>
+      <div class="user-info">
+        <img src="<%= user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png' %>" alt="User Avatar" id="user-avatar">
+        <span><%= user.username.toUpperCase() %></span>
+      </div>
+    <% } else { %>
+      <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+    <% } %>
+  </div>
+</nav>

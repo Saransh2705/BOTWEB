@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/navsl.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <%- include('partials/sidebar') %>
+  <div class="content">
+    <h1>Welcome to the Dashboard</h1>
+    <% if (user && user.guilds) { %>
+      <h2>You are in <%= user.guilds.length %> servers:</h2>
+      <div class="container">
+        <% user.guilds.forEach(guild => { %>
+          <a class="item" href="/guild/<%= guild.id %>">
+            <div class="inner-container">
+              <div class="header" style="background-image: url('https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png');"></div>
+              <div class="content-item">
+                <div class="avatar">
+                  <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="<%= guild.name %>">
+                </div>
+                <div class="server-name"><%= guild.name %></div>
+              </div>
+            </div>
+          </a>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p>You are not part of any servers.</p>
+    <% } %>
+  </div>
+  <script src="/js/scripts.js"></script>
+</body>
+</html>

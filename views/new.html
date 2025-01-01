@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dropbtn i {
+    margin-right: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 10px;
+}
+
+.dropdown-content label,
+.dropdown-content button {
+    display: block;
+    margin: 5px 0;
+}
+
+.dropdown-content input,
+.dropdown-content select {
+    width: 100%;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.canvas {
+    border: 1px solid #000;
+    width: 800px;
+    height: 600px;
+    margin: 20px auto;
+    position: relative;
+    background-color: #fff;
+}
+
+</style>
+<body>
+
+    <div class="toolbar">
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fas fa-regular fa-wand-magic-sparkles"></i> ONE CLICK
+            </button>
+            <div class="dropdown-content">
+                <label><input type="checkbox" id="createAll"> Create All</label>
+                <label><input type="checkbox" class="option"> Option 1</label>
+                <label><input type="checkbox" class="option"> Option 2</label>
+                <label><input type="checkbox" class="option"> Option 3</label>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fas fa-plus-circle"></i> INSERT
+            </button>
+            <div class="dropdown-content">
+                <button class="shape-btn" data-shape="rectangle"><i class="fas fa-square"></i> Rectangle</button>
+                <button class="shape-btn" data-shape="circle"><i class="fas fa-circle"></i> Circle</button>
+                <button class="shape-btn" data-shape="parallelogram"><i class="fas fa-parallelogram"></i> Parallelogram</button>
+                <button class="shape-btn" data-shape="star"><i class="fas fa-star"></i> Star</button>
+                <button class="shape-btn" data-shape="pentagon"><i class="fas fa-pentagon"></i> Pentagon</button>
+                <button class="shape-btn" data-shape="rhombus"><i class="fas fa-rhombus"></i> Rhombus</button>
+                <button class="shape-btn" data-shape="hexagon"><i class="fas fa-hexagon"></i> Hexagon</button>
+                <button class="shape-btn" data-shape="cloud"><i class="fas fa-cloud"></i> Cloud</button>
+                <button class="shape-btn" data-shape="textbox"><i class="fas fa-font"></i> Textbox</button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fas fa-draw-polygon"></i> SHAPES
+            </button>
+            <div class="dropdown-content">
+                <label>Border Color: <input type="color" id="borderColor"></label>
+                <label>Fill Color: <input type="color" id="fillColor"></label>
+                <label>Shadow: <input type="checkbox" id="shadow"></label>
+                <label>Glow: <input type="checkbox" id="glow"></label>
+                <label>Gradient:
+                    <select id="gradient">
+                        <option value="none">None</option>
+                        <option value="linear">Linear</option>
+                        <option value="radial">Radial</option>
+                    </select>
+                </label>
+                <label>Shape Size (px): <input type="number" id="shapeSize" min="1"></label>
+                <button id="flip90"><i class="fas fa-undo-alt"></i> Flip 90°</button>
+                <button id="flip180"><i class="fas fa-undo-alt"></i> Flip 180°</button>
+                <button id="flip270"><i class="fas fa-undo-alt"></i> Flip 270°</button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fas fa-font"></i> TEXT
+            </button>
+            <div class="dropdown-content">
+                <label>Font: <input type="text" id="font"></label>
+                <label>Font Size (px): <input type="number" id="fontSize" min="1"></label>
+                <label>Align:
+                    <select id="align">
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                    </select>
+                </label>
+                <button id="flipText90"><i class="fas fa-undo-alt"></i> Flip 90°</button>
+                <button id="flipText180"><i class="fas fa-undo-alt"></i> Flip 180°</button>
+                <button id="flipText270"><i class="fas fa-undo-alt"></i> Flip 270°</button>
+            </div>
+        </div>
+        <button id="uploadFontBtn">
+            <i class="fas fa-upload"></i> Upload Font
+        </button>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <i class="fas fa-save"></i> SAVE
+            </button>
+            <div class="dropdown-content">
+                <button id="saveTemplate"><i class="fas fa-save"></i> Save Template</button>
+                <button id="saveActivateTemplate"><i class="fas fa-save"></i> Save & Activate Template</button>
+            </div>
+        </div>
+    </div>
+    <div class="canvas" id="canvas">
+        <!-- Canvas or drawing area for templates -->
+    </div>
+
+    <input type="file" id="uploadFontInput" accept=".otf, .ttf" style="display:none">
+    <script src="app.js"></script>
+</body>
+</html>
